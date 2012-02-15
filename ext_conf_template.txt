@@ -1,0 +1,6 @@
+
+  # cat=basic; type=int; label=Minimum time between login attempts: (in seconds)
+minLoginInterval=5
+
+  # cat=basic; type=int; label=Clean-up delay: Time after which (useless) old records will be deleted (in seconds, should be >= minLoginInterval, or 0 for never)
+cleanUpAfterSeconds=3600
