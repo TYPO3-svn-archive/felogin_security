@@ -24,7 +24,15 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- * Hint: use extdeveval to insert/update function index above.
+ *
+ *
+ *   48: class tx_feloginsecurity_authuser extends t3lib_svbase
+ *   64:     function initAuth($subType, $loginData, $authInfo, $pObj)
+ *   85:     function authUser($user)
+ *
+ * TOTAL FUNCTIONS: 2
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
 require_once(PATH_t3lib.'class.t3lib_svbase.php');
@@ -48,6 +56,9 @@ class tx_feloginsecurity_authuser extends t3lib_svbase {
 	 * Initialize the service object, pick some values from the authInfo array
 	 *
 	 * @param string authentication service subtype (e.g. "authUserFE")
+	 * @param array $loginData: ...
+	 * @param array $authInfo: ...
+	 * @param object $pObj: ...
 	 * @return void
 	 */
 	function initAuth($subType, $loginData, $authInfo, $pObj)	{
@@ -69,7 +80,7 @@ class tx_feloginsecurity_authuser extends t3lib_svbase {
 	 * Checks if this user has already tried to login in the last few seconds, if so, block login
 	 *
 	 * @param array User record for the user that tries to login
-	 * @return int possible values: 200: authenticated, 100: not-authenticated, continue, 0: authentication failed (blocked)
+	 * @return int 	possible values: 200: authenticated, 100: not-authenticated, continue, 0: authentication failed (blocked)
 	 */
 	function authUser($user)	{
 

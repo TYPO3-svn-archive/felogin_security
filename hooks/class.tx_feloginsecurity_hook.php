@@ -24,7 +24,14 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- * Hint: use extdeveval to insert/update function index above.
+ *
+ *
+ *   47: class tx_feloginsecurity_hook extends tslib_pibase
+ *   59:     function postLoginDelay(&$pObj)
+ *
+ * TOTAL FUNCTIONS: 1
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
 require_once(PATH_t3lib.'class.t3lib_svbase.php');
@@ -46,7 +53,8 @@ class tx_feloginsecurity_hook extends tslib_pibase {
 	 * Add a delay after failed FE login attempts
 	 * Clean up logged attempts on successful login
 	 *
-	 * @param type $pObj
+	 * @param object $pObj
+	 * @return void
 	 */
 	function postLoginDelay(&$pObj) {
 
