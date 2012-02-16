@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Loek Hilgersom',
 	'author_email' => 'loek@netcoop.nl',
 	'shy' => '',
-	'dependencies' => 'cms',
+	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -32,7 +32,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.0.1',
 	'constraints' => array(
 		'depends' => array(
-			'cms' => '',
+			'typo3' => '4.3.0-4.7.99',
 		),
 		'conflicts' => array(
 		),

@@ -88,20 +88,20 @@ class tx_feloginsecurity_authuser extends t3lib_svbase {
 		$authResult = 100;
 
 		$table = 'tx_feloginsecurity';
-		$where = 'user_id=' . $user['uid'] . ' AND logintype LIKE ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->loginType, $table);
+		$where = 'user_id=' . $user['uid'] . ' AND logintype=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->loginType, $table);
 
 		#t3lib_div::devLog('authUser where', $this->extKey, 0, array($this->emConf['minLoginInterval']));
 
 		$result = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('lastloginattempt', $table, $where);
 		if ($result) {
-			$nowInterval = time() - $this->emConf['minLoginInterval'];
+			$nowInterval = $GLOBALS['EXEC_TIME'] - $this->emConf['minLoginInterval'];
 			if ($result['lastloginattempt'] >= $nowInterval) {
 				// 0 means authentication failed (blocked login attempt because too many attempts in short time frame)
 				$authResult = 0;
 				t3lib_div::devLog('authUser blocked', $this->extKey, 0, array($result['lastloginattempt'] => $nowInterval));
 			}
 			// Update tstamp for this login attempt
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, $where, array('lastloginattempt' => time()));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, $where, array('lastloginattempt' => $GLOBALS['EXEC_TIME']));
 			#t3lib_div::devLog('authUser update', $this->extKey, 0);
 		} else {
 			// Insert record with tstamp of this login attempt
@@ -110,7 +110,7 @@ class tx_feloginsecurity_authuser extends t3lib_svbase {
 					array(
 						'user_id' => $user['uid'],
 						'logintype' => $this->loginType,
-						'lastloginattempt' => time()
+						'lastloginattempt' => $GLOBALS['EXEC_TIME']
 					)
 				);
 			#t3lib_div::devLog('authUser insert', $this->extKey, 0);
@@ -119,8 +119,8 @@ class tx_feloginsecurity_authuser extends t3lib_svbase {
 		// Delete old records
 		$cleanUpAfterSeconds = $this->emConf['cleanUpAfterSeconds'];
 		if ($cleanUpAfterSeconds != 0) {
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery($table, 'lastloginattempt<' . intval(time()-$cleanUpAfterSeconds));
-			#t3lib_div::devLog('authUser delete', $this->extKey, 0, array('lastloginattempt' => intval(time()-$cleanUpAfterSeconds)));
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery($table, 'lastloginattempt<' . intval($GLOBALS['EXEC_TIME']-$cleanUpAfterSeconds));
+			#t3lib_div::devLog('authUser delete', $this->extKey, 0, array('lastloginattempt' => intval($GLOBALS['EXEC_TIME']-$cleanUpAfterSeconds)));
 		}
 
 		return $authResult;

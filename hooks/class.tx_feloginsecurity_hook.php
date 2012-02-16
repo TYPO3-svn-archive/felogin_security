@@ -75,7 +75,7 @@ class tx_feloginsecurity_hook extends tslib_pibase {
 				$table = 'tx_feloginsecurity';
 				$GLOBALS['TYPO3_DB']->exec_DELETEquery(
 						$table,
-						'user_id=' . $userAuthObj->user['uid'] . ' AND logintype LIKE ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($userAuthObj->loginType, $table)
+						'user_id=' . $userAuthObj->user['uid'] . ' AND logintype=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($userAuthObj->loginType, $table)
 					);
 
 			}
